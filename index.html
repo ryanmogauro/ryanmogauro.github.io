@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Site</title>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+            color: #333;
+        }
+        body {
+            padding-top: 60px; /* Adjust to match the nav bar's height */
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #f9f9f9; /* Clean off-white color */
+            color: #333;
+            z-index: 1000;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        nav ul li {
+            margin: 0 20px;
+        }
+        nav ul li a {
+            color: #1e3c72; /* Navy blue color */
+            text-decoration: none;
+            font-weight: 700;
+            padding: 15px 0;
+            display: block;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+            align-items: center;
+            position: relative;
+            text-align: center;
+        }
+        .home {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+        }
+        .about {
+            background: #f9f9f9;
+            padding: 60px 20px; /* Adjusted top padding */
+            align-items: flex-start;
+        }
+        .projects {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            padding: 60px 20px; /* Adjusted top padding */
+        }
+        h1, p {
+            margin: 0;
+        }
+        /* Home Section */
+        .home-content {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+            justify-content: center;
+        }
+        .home-text {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+        .home-text h1 {
+            font-size: 48px;
+            font-weight: 300;
+        }
+        .home-text p {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .home-photo {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .home-photo img {
+            width: 300px; /* Adjusted width */
+            height: 300px; /* Adjusted height to make it a square */
+            border-radius: 50%; /* Make the image a circle */
+            object-fit: cover; /* Ensure the image covers the container */
+        }
+        /* Navigation Buttons */
+        .v-button, .arrow-button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            padding: 10px 20px;
+            background: #1e3c72;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .v-button:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid #1e3c72;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .arrow-button::before {
+            content: '⬇';
+            font-size: 20px;
+            display: block;
+        }
+        /* Dots Navigation */
+        .dots-container {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: lightgray;
+            margin: 8px 0;
+            transition: background-color 0.3s;
+        }
+        .dot.active {
+            background-color: #1e3c72;
+        }
+        /* About Section Styling */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .about h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1e3c72;
+        }
+        .about p {
+            font-size: 20px;
+            line-height: 1.6;
+            font-weight: 300;
+            color: #555;
+            margin-top: 30px;
+        }
+        /* Connect with me */
+        .connect-with-me {
+            margin-top: 40px;
+        }
+        .connect-with-me h2 {
+            font-size: 32px;
+            color: #1e3c72;
+            margin-bottom: 20px;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+        .social-icons a {
+            display: inline-block;
+            text-decoration: none;
+        }
+        .social-icons img {
+            width: 50px; /* Adjust the size as needed */
+            height: 50px;
+        }
+        /* Projects */
+        .projects h1 {
+            margin-top: 0;
+        }
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .project-item {
+            background: white;
+            padding: 20px;
+            margin: 10px;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: left;
+            color: #333;
+        }
+        .project-item h2 {
+            margin-top: 0;
+        }
+        .project-item a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: #1e3c72;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .project-item a:hover {
+            background: #16325c;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .home-content {
+                flex-direction: column;
+            }
+            .home-text, .home-photo {
+                flex: none;
+                width: 100%;
+            }
+            .home-photo img {
+                width: 200px;
+                height: 200px;
+            }
+            nav ul li {
+                margin: 0 10px;
+            }
+            .social-icons {
+                gap: 20px;
+            }
+            .social-icons img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#home" onclick="scrollToSection('home')">Home</a></li>
+            <li><a href="#about" onclick="scrollToSection('about')">About Me</a></li>
+            <li><a href="#projects" onclick="scrollToSection('projects')">Projects</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Section -->
+    <section class="home" id="home">
+        <div class="home-content">
+            <div class="home-text">
+                <h1>Hi, I'm Ryan Mogauro</h1>
+                <p>
+                    I am an aspiring software engineer and senior at Colby College studying computer science and statistics.
+                </p>
+            </div>
+            <div class="home-photo">
+                <img src="myPhoto.jpg" alt="Profile Photo">
+            </div>
+        </div>
+    </section>
+
+    <!-- Updated About Section -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <h1>About Me</h1>
+            <p>
+                My name is Ryan Mogauro and I'm a senior at Colby College studying computer science and statistics. I grew up in Upstate New York, but now live in Massachusetts. I have always been fascinated by technology and became enthralled with programming in high school. Since then, I've steadily developed my skills as a full-stack software engineer, diving into new technologies inside and outside of the classroom. I worked as a Software Engineer Intern this past summer at Fidelity Investments, where I will be returning full-time upon graduation.
+            </p>
+
+            <!-- Connect with me Section -->
+            <div class="connect-with-me">
+                <h2>Connect with me</h2>
+                <div class="social-icons">
+                    <a href="www.linkedin.com/in/ryan-mogauro-a72a3a292" target="_blank">
+                        <img src="linkedin.jpg" alt="LinkedIn">
+                    </a>
+                    <a href="mailto:rmogau25@colby.edu">
+                        <img src="email.jpg" alt="Email">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div>
+            <h1>Projects</h1>
+            <div class="project-list">
+                <div class="project-item">
+                    <h2>NBA Hall of Fame Odds</h2>
+                    <p>React and Node.js app that calculates and returns the probability of hall of fame induction using a pretrained logistic regression model, given an input current player.</p>
+                    <a href="https://github.com/ryanmogauro/NBA-Hall-of-Fame-Odds">View Project</a>
+                </div>
+                <div class="project-item">
+                    <h2>Email Spam Classifier</h2>
+                    <p>Custom Naive Bayes and K-Nearest Neighbors models for email spam detection, trained on the Enron dataset.</p>
+                    <a href="https://github.com/ryanmogauro/Spam-Classifier">View Project</a>
+                </div>
+                <div class="project-item">
+                    <h2>Class Calculator</h2>
+                    <p>A website enabling students to calculate various academic figures.</p>
+                    <a href="https://github.com/ryanmogauro/Class-Calculator-V2">View Project</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dots Navigation -->
+    <div class="dots-container">
+        <div class="dot" id="dot-home"></div>
+        <div class="dot" id="dot-about"></div>
+        <div class="dot" id="dot-projects"></div>
+    </div>
+
+    <script>
+        // Scroll to specific section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Track current section to update dots
+        window.onscroll = function () {
+            var sections = ['home', 'about', 'projects'];
+            var currentScroll = window.scrollY + window.innerHeight / 2;
+            sections.forEach(function (section) {
+                var element = document.getElementById(section);
+                var top = element.offsetTop;
+                var height = element.offsetHeight;
+                if (currentScroll >= top && currentScroll < top + height) {
+                    document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('active'));
+                    document.getElementById('dot-' + section).classList.add('active');
+                }
+            });
+        };
+    </script>
+
+</body>
+</html>
